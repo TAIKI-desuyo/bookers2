@@ -7,6 +7,10 @@ Rails.application.routes.draw do
      resources :book_comments, only: [:create, :destroy]
    end
 
-  resources :users
+  resources :users do
+    resource :relationships, only: [:create, :destroy]
+    get :followers, on: :member
+    get :followeds, on: :member
+end 
 
 end

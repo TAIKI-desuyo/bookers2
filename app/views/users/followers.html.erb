@@ -1,11 +1,13 @@
 <div class="container px-5 px-sm-0">
  <div class="row">
-  <div class="col-md-3">
-    <%= render 'users/list', user: @user, book: @book %>
-  </div>
 <div class="col-md-8 offset-md-1">
-<h1>Users</h1>
+<h1>Follower Users</h1>
 
+
+  <% if @users.empty? %>
+    <h4>😭 ユーザーはいません 😭</h4>
+    <% else %>
+    
 <table class="table">
   <thead>
     <tr>
@@ -15,7 +17,7 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
+  
   <tbody>
     <% @users.each do |user| %>
       <tr>
@@ -23,26 +25,14 @@
         <td><%= user.name %></td>
         <td>フォロー数 <%= user.followeds.count %></td>
         <td>フォロワー数<%= user.followers.count %></td>
-        
-        <% if user == current_user %>
-        <% else %>
-        <% if user.is_followed_by?(current_user) %>
-        <td> <%= link_to user_relationships_path(user), method: :delete do %>
-              <button class = "btn btn-warning" >フォローを外す</button>
-          <% end %></td>
-          <% else %>
-          <td> <%= link_to user_relationships_path(user),method: :post do %>
-              <button class = "btn btn-success" >フォローする</button>
-          <% end %></td>
-          <% end %>
-          <% end %>
         <td><%= link_to 'Show', user_path(user) %></td>
-                
+
       </tr>
     <% end %>
+   
   </tbody>
 </table>
-
+ <% end %>
 <br>
 
 </div>
